@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\user\UserController;
 use App\Http\Middleware\Authenticate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,4 +24,7 @@ Route::get('/auth/admin/logout',[AdminController::class, 'logout']);
 Route::group(['prefix'=>'admin'],function (){
     Route::apiResource('list',AdminController::class);
     Route::apiResource('product',ProductController::class);
+    Route::apiResource('category',CategoryController::class);
 });
+Route::post('/auth/user/singup', [UserController::class,'singUp']);
+Route::post('/auth/user/login', [UserController::class,'login']);
