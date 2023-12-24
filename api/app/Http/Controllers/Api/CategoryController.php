@@ -16,6 +16,9 @@ class CategoryController extends Controller
     public function index()
     {
         //
+        $category = Category::orderBy('created_at','desc')->paginate(15);
+        return response()->json($category,200);
+
     }
 
     /**
@@ -36,7 +39,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**

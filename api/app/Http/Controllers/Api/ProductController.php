@@ -52,7 +52,6 @@ class ProductController extends Controller
         $newProduct->status=$request->get('status');
         $newProduct->desc=$request->get('desc');
         $newProduct->cate_id=$request->get('cate_id');
-        $newProduct->created_by=1;
         if($request->file('img')){
             $generatedImg = 'image'.time().'.'.$request->file('img')->extension();
             $request->file('img')->move(public_path('img'),$generatedImg);
@@ -99,8 +98,6 @@ class ProductController extends Controller
      */
     public function update(ProductValidatedRequest $request, $id)
     {
-        //
-        dd($request);
         $updateProduct = Product::find($id);
         $request->validated();
         if ($updateProduct){
