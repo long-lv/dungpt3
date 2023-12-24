@@ -39,7 +39,13 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-
+        $validated = $request->validate([
+            'name' => 'required|unique:category|max:100|min:3',
+        ]);
+        $category = new Topping();
+        $category->name=$request->get('name');
+        $category->save();
+        return response()->json($category,200);
     }
 
     /**
@@ -48,9 +54,16 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($id)
     {
         //
+        $category = Category::find($id);
+        if (!$category) {
+            return response()->json([
+                'message' => 'No products were found corresponding to the provided ID.',
+            ], 404);
+        }
+        return new ProductResource($category);
     }
 
     /**
